@@ -3,11 +3,11 @@ Test and debug URL scheme on Android
 
 ## Demo
 
-What's gonna happen?
-✔ App installed &#8594; Start the application
-✘ App not installed &#8594; Redirect to Play Store
+What's gonna happen?  
+✔ App installed → Start the application  
+✘ App not installed → Redirect to Play Store  
 
-<a href="intent://example.com:8042/over/there/index.html?query=something#refresh#Intent;scheme=test;package=fr.smarquis.urlscheme;action=android.intent.action.VIEW;S.string=abc;B.boolean=true;i.int=123;l.long=123456;f.float=123.456;end">Click here</a> to trigger the url scheme.
+[Click here](intent://example.com:8042/over/there/index.html?query=something#refresh#Intent;scheme=test;package=fr.smarquis.urlscheme;action=android.intent.action.VIEW;S.string=abc;B.boolean=true;i.int=123;l.long=123456;f.float=123.456;end) to trigger the url scheme
 
 ## How-to
 
