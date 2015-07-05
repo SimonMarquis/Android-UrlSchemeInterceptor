@@ -1,17 +1,15 @@
 # Android-UrlScheme
-Test and debug URL scheme on Android
+Test and debug url scheme on Android
 
 ## Demo
-
 What's gonna happen?  
 ✔ App installed → Start the application  
 ✘ App not installed → Redirect to Play Store  
 
-[Click here][1] to trigger the url scheme
+[Click here](https://simonmarquis.github.io/Android-UrlScheme) to trigger the url scheme!
 
 ## How-to
-
-This application can be launched without any modification.
+This application can be launched without any modification.  
 Use this `adb` command to trigger the default url scheme with some parameters:
 ```shell
 adb shell am start \
@@ -26,7 +24,7 @@ adb shell am start \
     --esa stringArray a,b,c
 ```
 
-If you want to test your custom url scheme, simply add the corresponding entry in the [AndroidManifest.xml](app/src/main/AndroidManifest.xml) file.
+If you want to test your custom url scheme, simply add the corresponding entry in [AndroidManifest.xml](app/src/main/AndroidManifest.xml)
 ```xml
 <intent-filter>
     <action android:name="android.intent.action.VIEW" />
@@ -41,21 +39,10 @@ If you want to test your custom url scheme, simply add the corresponding entry i
 ```
 
 ## Chrome
-
-The default Chrome implementation is done through [intents](https://developer.chrome.com/multidevice/android/intents).
+The default Chrome implementation is done through [intents](https://developer.chrome.com/multidevice/android/intents).  
 Simply wrap the following *intent* into an `<a href="intent">` tag.
 ```
 intent://example.com:8042/over/there/index.html?query=something#refresh#Intent;scheme=test;package=fr.smarquis.urlscheme;action=android.intent.action.VIEW;S.string=abc;B.boolean=true;i.int=123;l.long=123456;f.float=123.456;end
 ```
 
 The `package=x.y.z;` is mandatory to prompt the user to install the app if it is not already on the device.
-
-## References
-
-- https://developer.chrome.com/multidevice/android/intents
-- https://paul.kinlan.me/deep-app-linking-on-android-and-chrome/
-- http://solvedstack.com/questions/how-to-fall-back-to-marketplace-when-android-custom-url-scheme-not-handled
-- http://fokkezb.nl/2013/08/26/url-schemes-for-ios-and-android-1/
-- http://fokkezb.nl/2013/09/20/url-schemes-for-ios-and-android-2/
-
-[1]: intent://example.com:8042/over/there/index.html?query=something#refresh#Intent;scheme=test;package=fr.smarquis.urlscheme;action=android.intent.action.VIEW;S.string=abc;B.boolean=true;i.int=123;l.long=123456;f.float=123.456;end
