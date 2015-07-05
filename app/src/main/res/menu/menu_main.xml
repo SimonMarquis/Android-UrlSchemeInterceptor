@@ -4,7 +4,7 @@
     tools:context="fr.smarquis.urlscheme.MainActivity">
     <item
         android:id="@+id/action_forward"
-        android:icon="@drawable/ic_launch_white_36dp"
+        android:icon="@drawable/ic_launch_white_48dp"
         android:title="@string/action_forward"
         app:showAsAction="always" />
 </menu>
