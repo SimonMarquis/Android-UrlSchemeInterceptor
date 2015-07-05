@@ -91,6 +91,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_forward:
                 startActivity(Intent.createChooser(new Intent(getIntent()).setComponent(null), null));
                 return true;
+            case R.id.action_settings:
+                startActivity(new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + getPackageName())));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
