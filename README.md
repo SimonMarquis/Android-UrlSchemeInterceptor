@@ -7,7 +7,7 @@ What's gonna happen?
 ✔ App installed → Start the application  
 ✘ App not installed → Redirect to Play Store  
 
-[Click here](intent://example.com:8042/over/there/index.html?query=something#refresh#Intent;scheme=test;package=fr.smarquis.urlscheme;action=android.intent.action.VIEW;S.string=abc;B.boolean=true;i.int=123;l.long=123456;f.float=123.456;end) to trigger the url scheme
+[Click here][1] to trigger the url scheme
 
 ## How-to
 
@@ -57,3 +57,5 @@ The `package=x.y.z;` is mandatory to prompt the user to install the app if it is
 - http://solvedstack.com/questions/how-to-fall-back-to-marketplace-when-android-custom-url-scheme-not-handled
 - http://fokkezb.nl/2013/08/26/url-schemes-for-ios-and-android-1/
 - http://fokkezb.nl/2013/09/20/url-schemes-for-ios-and-android-2/
+
+[1]: intent://example.com:8042/over/there/index.html?query=something#refresh#Intent;scheme=test;package=fr.smarquis.urlscheme;action=android.intent.action.VIEW;S.string=abc;B.boolean=true;i.int=123;l.long=123456;f.float=123.456;end
