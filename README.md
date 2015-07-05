@@ -9,7 +9,16 @@ Test and debug URL scheme on Android
 
 #### adb
 ```shell
-adb shell am start -a android.intent.action.VIEW -d 'test://path/host?param1=value1#hash' -e key1 value1
+adb shell am start \
+    -a android.intent.action.VIEW \
+    -d 'test://example.com:8042/over/there/index.html?query=something#refresh' \
+    --es string abc \
+    --ez boolean true \
+    --ei int 123 \
+    --el long 123456 \
+    --ef float 123.456 \
+    --eu uri http://www.google.com \
+    --esa stringArray a,b,c
 ```
 
 ### References
