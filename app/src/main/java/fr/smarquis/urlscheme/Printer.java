@@ -7,7 +7,7 @@ import android.text.style.StyleSpan;
 import java.util.Arrays;
 import java.util.Set;
 
-public class Printer {
+class Printer {
 
     public static final String EMPTY = "\u2205";
 

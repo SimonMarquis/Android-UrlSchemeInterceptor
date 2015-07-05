@@ -8,11 +8,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
         fillData(intent, ((TextView) findViewById(R.id.data)));
         fillExtras(intent, ((TextView) findViewById(R.id.extras)));
     }
-
 
     private void fillIntent(@Nullable Intent intent, @NonNull TextView textView) {
         if (intent == null) {
@@ -99,13 +96,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void startIntent(View view) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("test://example.com:8042/over/there/index.dtb?type=animal&name=narwhal#nose"));
-        intent.putExtra("key1", "value1");
-        intent.putExtra("key2", 123456);
-        intent.putExtra("key3", 123456.45);
-        intent.putExtra("key4", true);
-        intent.putExtra("key5", new String[]{"a", "b", "c"});
-        startActivity(intent);
-    }
 }

@@ -1,13 +1,14 @@
 package fr.smarquis.urlscheme;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.util.SparseArray;
 
 import java.util.HashSet;
 
-
-public class Flags {
-
+class Flags {
+    @SuppressWarnings("deprecation")
+    @SuppressLint("InlinedApi")
     private static final SparseArray<String> FLAGS = new SparseArray<String>() {
         {
             put(Intent.FLAG_GRANT_READ_URI_PERMISSION, "FLAG_GRANT_READ_URI_PERMISSION");
