@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Android-UrlScheme by SimonMarquis</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Android-UrlScheme</h1>
+        <h2>Test and debug Url Scheme on Android</h2>
+        <a href="https://github.com/SimonMarquis/Android-UrlScheme" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
+<a id="android-urlscheme" class="anchor" href="#android-urlscheme" aria-hidden="true"><span class="octicon octicon-link"></span></a>Android-UrlScheme</h1>
+
+<p>Test and debug URL scheme on Android</p>
+
+<h2>
+<a id="demo" class="anchor" href="#demo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo</h2>
+
+<p>What's gonna happen?<br>
+✔ App installed → Start the application<br>
+✘ App not installed → Redirect to Play Store  </p>
+
+<p>Click here to trigger the url scheme</p>
+
+<h2>
+<a id="how-to" class="anchor" href="#how-to" aria-hidden="true"><span class="octicon octicon-link"></span></a>How-to</h2>
+
+<p>This application can be launched without any modification.
+Use this <code>adb</code> command to trigger the default url scheme with some parameters:</p>
+
+<div class="highlight highlight-shell"><pre>adb shell am start \
+    -a android.intent.action.VIEW \
+    -d <span class="pl-s"><span class="pl-pds">'</span>test://example.com:8042/over/there/index.html?query=something#refresh<span class="pl-pds">'</span></span> \
+    --es string abc \
+    --ez boolean <span class="pl-c1">true</span> \
+    --ei int 123 \
+    --el long 123456 \
+    --ef float 123.456 \
+    --eu uri http://www.google.com \
+    --esa stringArray a,b,c</pre></div>
+
+<p>If you want to test your custom url scheme, simply add the corresponding entry in the <a href="app/src/main/AndroidManifest.xml">AndroidManifest.xml</a> file.</p>
+
+<div class="highlight highlight-xml"><pre>&lt;<span class="pl-ent">intent-filter</span>&gt;
+    &lt;<span class="pl-ent">action</span> <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>android.intent.action.VIEW<span class="pl-pds">"</span></span> /&gt;
+
+    &lt;<span class="pl-ent">category</span> <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>android.intent.category.DEFAULT<span class="pl-pds">"</span></span> /&gt;
+    &lt;<span class="pl-ent">category</span> <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>android.intent.category.BROWSABLE<span class="pl-pds">"</span></span> /&gt;
+
+    &lt;<span class="pl-ent">data</span> <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">scheme</span>=<span class="pl-s"><span class="pl-pds">"</span>test<span class="pl-pds">"</span></span> /&gt;
+    <span class="pl-c">&lt;!--Add your custom scheme here--&gt;</span>
+    <span class="pl-c">&lt;!--&lt;data android:scheme="custom" /&gt;--&gt;</span>
+&lt;/<span class="pl-ent">intent-filter</span>&gt;</pre></div>
+
+<h2>
+<a id="chrome" class="anchor" href="#chrome" aria-hidden="true"><span class="octicon octicon-link"></span></a>Chrome</h2>
+
+<p>The default Chrome implementation is done through <a href="https://developer.chrome.com/multidevice/android/intents">intents</a>.
+Simply wrap the following <em>intent</em> into an <code>&lt;a href="intent"&gt;</code> tag.</p>
+
+<pre><code>intent://example.com:8042/over/there/index.html?query=something#refresh#Intent;scheme=test;package=fr.smarquis.urlscheme;action=android.intent.action.VIEW;S.string=abc;B.boolean=true;i.int=123;l.long=123456;f.float=123.456;end
+</code></pre>
+
+<p>The <code>package=x.y.z;</code> is mandatory to prompt the user to install the app if it is not already on the device.</p>
+
+<h2>
+<a id="references" class="anchor" href="#references" aria-hidden="true"><span class="octicon octicon-link"></span></a>References</h2>
+
+<ul>
+<li><a href="https://developer.chrome.com/multidevice/android/intents">https://developer.chrome.com/multidevice/android/intents</a></li>
+<li><a href="https://paul.kinlan.me/deep-app-linking-on-android-and-chrome/">https://paul.kinlan.me/deep-app-linking-on-android-and-chrome/</a></li>
+<li><a href="http://solvedstack.com/questions/how-to-fall-back-to-marketplace-when-android-custom-url-scheme-not-handled">http://solvedstack.com/questions/how-to-fall-back-to-marketplace-when-android-custom-url-scheme-not-handled</a></li>
+<li><a href="http://fokkezb.nl/2013/08/26/url-schemes-for-ios-and-android-1/">http://fokkezb.nl/2013/08/26/url-schemes-for-ios-and-android-1/</a></li>
+<li><a href="http://fokkezb.nl/2013/09/20/url-schemes-for-ios-and-android-2/">http://fokkezb.nl/2013/09/20/url-schemes-for-ios-and-android-2/</a></li>
+</ul>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/SimonMarquis/Android-UrlScheme/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/SimonMarquis/Android-UrlScheme/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/SimonMarquis/Android-UrlScheme"></a> is maintained by <a href="https://github.com/SimonMarquis">SimonMarquis</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
