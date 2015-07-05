@@ -22,6 +22,8 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="test" />
+                <!--Add your custom scheme here-->
+                <!--<data android:scheme="custom" />-->
             </intent-filter>
         </activity>
     </application>
