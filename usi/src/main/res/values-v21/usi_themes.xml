@@ -1,6 +1,5 @@
 <resources>
 
-    <style name="usi_Base" parent="android:Theme.Material">
-    </style>
+    <style name="usi_Base" parent="android:Theme.Material"></style>
 
 </resources>

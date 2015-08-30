@@ -89,7 +89,7 @@ public class InterceptorActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         final Intent nextIntent = getNextIntent();
         if (nextIntent != null) {
-            menu.add("Launch").setIcon(R.drawable.usi_ic_launch_white_48dp).setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            menu.add(R.string.usi_menu_restart).setIcon(R.drawable.usi_ic_repeat_white_36dp).setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     startActivity(Intent.createChooser(nextIntent, null));
@@ -97,7 +97,7 @@ public class InterceptorActivity extends Activity {
                 }
             });
         }
-        menu.add("Settings").setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+        menu.add(R.string.usi_menu_settings).setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 startActivity(new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + getPackageName())));
