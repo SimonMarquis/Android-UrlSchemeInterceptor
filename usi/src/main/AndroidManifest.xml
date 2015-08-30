@@ -1,0 +1,21 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="fr.smarquis.usi">
+
+    <application>
+        <activity
+            android:name=".InterceptorActivity"
+            android:enabled="false"
+            android:label="@string/usi_activity_label"
+            android:theme="@style/usi_Base">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="@string/usi_scheme" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,4 @@
+<resources>
+    <string name="usi_activity_label">UrlScheme Interceptor</string>
+    <string name="usi_scheme">usi</string>
+</resources>

@@ -1,1 +1,1 @@
-include ':sample', ':urlscheme'
+include ':sample', ':usi'
