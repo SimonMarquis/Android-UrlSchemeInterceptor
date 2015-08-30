@@ -56,10 +56,15 @@ public class UrlSchemeActivity extends Activity {
         Printer.append(truss, "port", data.getPort());
         Printer.append(truss, "path", data.getPath());
         Printer.appendKey(truss, "query");
+        boolean query = false;
         if (data.isHierarchical()) {
             for (String queryParameterName : data.getQueryParameterNames()) {
                 Printer.appendSecondary(truss, queryParameterName, data.getQueryParameter(queryParameterName));
+                query = true;
             }
+        }
+        if (!query) {
+            Printer.appendValue(truss, null);
         }
         Printer.append(truss, "fragment", data.getFragment());
         textView.setText(truss.build());

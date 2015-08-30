@@ -32,7 +32,7 @@ class Printer {
                 .popSpan();
     }
 
-    private static void appendValue(Truss truss, Object value) {
+    public static void appendValue(Truss truss, Object value) {
         if (value == null) {
             truss.append(EMPTY);
         } else if (value instanceof Set) {
