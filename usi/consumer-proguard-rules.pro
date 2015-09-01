@@ -1,0 +1,1 @@
+-keep class fr.smarquis.usi.** { *; }
