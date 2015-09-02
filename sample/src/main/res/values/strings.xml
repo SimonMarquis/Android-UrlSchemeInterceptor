@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">UrlScheme Interceptor Sample</string>
+    <string name="result_activity">Result</string>
+    <string name="trigger_button">trigger</string>
+</resources>

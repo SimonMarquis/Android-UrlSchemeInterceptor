@@ -1,0 +1,3 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <public name="usi_scheme" type="string" tools:ignore="UnusedResources" />
+</resources>
