@@ -63,7 +63,26 @@ class Printer {
         } else {
             Class<?> clazz = value.getClass();
             if (clazz.isArray()) {
-                truss.append(Arrays.toString((Object[]) value));
+                Class<?> type = clazz.getComponentType();
+                if (type == long.class) {
+                    truss.append(Arrays.toString((long[]) value));
+                } else if (type == int.class) {
+                    truss.append(Arrays.toString((int[]) value));
+                } else if (type == char.class) {
+                    truss.append(Arrays.toString((char[]) value));
+                } else if (type == boolean.class) {
+                    truss.append(Arrays.toString((boolean[]) value));
+                } else if (type == byte.class) {
+                    truss.append(Arrays.toString((byte[]) value));
+                } else if (type == float.class) {
+                    truss.append(Arrays.toString((float[]) value));
+                } else if (type == short.class) {
+                    truss.append(Arrays.toString((short[]) value));
+                } else if (type == double.class) {
+                    truss.append(Arrays.toString((double[]) value));
+                } else {
+                    truss.append(Arrays.toString((Object[]) value));
+                }
             } else {
                 truss.append(value.toString());
             }
@@ -72,8 +91,6 @@ class Printer {
                     .append("   as ").append(clazz.getSimpleName())
                     .popSpan()
                     .popSpan();
-
-
         }
         truss.append("\n\n");
     }

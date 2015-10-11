@@ -33,7 +33,26 @@ public class ResultActivity extends Activity {
                 if (obj != null) {
                     Class<?> clazz = obj.getClass();
                     if (clazz.isArray()) {
-                        truss.append(Arrays.toString((Object[]) obj));
+                        Class<?> type = clazz.getComponentType();
+                        if (type == long.class) {
+                            truss.append(Arrays.toString((long[]) obj));
+                        } else if (type == int.class) {
+                            truss.append(Arrays.toString((int[]) obj));
+                        } else if (type == char.class) {
+                            truss.append(Arrays.toString((char[]) obj));
+                        } else if (type == boolean.class) {
+                            truss.append(Arrays.toString((boolean[]) obj));
+                        } else if (type == byte.class) {
+                            truss.append(Arrays.toString((byte[]) obj));
+                        } else if (type == float.class) {
+                            truss.append(Arrays.toString((float[]) obj));
+                        } else if (type == short.class) {
+                            truss.append(Arrays.toString((short[]) obj));
+                        } else if (type == double.class) {
+                            truss.append(Arrays.toString((double[]) obj));
+                        } else {
+                            truss.append(Arrays.toString((Object[]) obj));
+                        }
                     } else {
                         truss.append(String.valueOf(obj));
                     }
