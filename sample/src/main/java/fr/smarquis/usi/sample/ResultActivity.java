@@ -22,13 +22,12 @@ public class ResultActivity extends Activity {
 
     private CharSequence getDataString() {
         Truss truss = new Truss();
-        truss.append(getIntent().getDataString());
+        truss.pushSpan(new StyleSpan(Typeface.BOLD)).append(getIntent().getDataString()).popSpan();
         Bundle bundle = getIntent().getExtras();
         Set<String> extras = bundle.keySet();
         if (!extras.isEmpty()) {
-            truss.append('\n');
             for (String extra : extras) {
-                truss.append('\n').pushSpan(new StyleSpan(Typeface.BOLD)).append(extra).popSpan().append(": ");
+                truss.append("\n\n").pushSpan(new StyleSpan(Typeface.BOLD)).append(extra).popSpan().append(":\n");
                 Object obj = bundle.get(extra);
                 if (obj != null) {
                     Class<?> clazz = obj.getClass();
