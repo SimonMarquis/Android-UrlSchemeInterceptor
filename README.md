@@ -1,14 +1,14 @@
-![Android-UrlScheme Interceptor](art/Play Store Feature.png?raw=true "Android-UrlSchemeInterceptor")
+![Android-UrlScheme Interceptor](https://raw.githubusercontent.com/SimonMarquis/Android-UrlSchemeInterceptor/master/art/Play%20Store%20Feature.png "Android-UrlSchemeInterceptor")
 
-## Demo
+## Test it
 What's gonna happen?  
-✔ App installed → Start the application  
 ✘ App not installed → Redirect to Play Store  
+✔ App installed → Start the application or the interceptor  
 
 **<a href="intent://example.com:8042/over/there/index.html?query=something#refresh#Intent;scheme=test;package=fr.smarquis.usi.sample;action=android.intent.action.VIEW;S.string=abc;B.boolean=true;i.int=123;l.long=123456;f.float=123.456;end">Click here</a> to trigger the url scheme!**
 
 ## Integration
-Import the [aar file](https://github.com/SimonMarquis/Android-UrlSchemeInterceptor/releases) into your project as a new module called `usi`:
+Import the [aar file](https://github.com/SimonMarquis/Android-UrlSchemeInterceptor/releases) into your project as a new module called `usi`:  
 `File` → `New` → `New Module` → `Import .JAR/.AAR package`
 
 Then in your `build.gradle` file:
@@ -39,10 +39,10 @@ If you want to intercept a custom scheme, simply override the `usi_scheme` strin
 </resources>
 ```
 
-**That's it!** USI will automatically intercept the corresponding scheme.
+**That's it!** UrlSchemeInterceptor will automatically intercept the corresponding scheme.
 
 ## Manual trigger
-This demo application can be launched without any modification.
+This demo application can be launched without any modification.  
 Use this `adb` command to trigger the default url scheme with some parameters:
 ```shell
 adb shell am start \
