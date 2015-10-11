@@ -1,4 +1,4 @@
-![Android-UrlScheme Interceptor](resources/Play Store Feature.png?raw=true "Android-UrlSchemeInterceptor")
+![Android-UrlScheme Interceptor](art/Play Store Feature.png?raw=true "Android-UrlSchemeInterceptor")
 
 ## Demo
 What's gonna happen?  
