@@ -1,27 +1,78 @@
 apply plugin: 'com.android.application'
 
+def versionMajor  = 0
+def versionMinor  = 0
+def versionPatch  = 0
+def versionBuild  = 0
+
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion 23
+    buildToolsVersion '23.0.1'
 
     defaultConfig {
         applicationId "fr.smarquis.usi.sample"
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.compileSdkVersion
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion 11
+        targetSdkVersion 23
+        versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
     }
 
-    compileOptions {
-        sourceCompatibility rootProject.ext.javaVersion
-        targetCompatibility rootProject.ext.javaVersion
+    signingConfigs {
+        release {
+            storeFile file('.')
+            storePassword ''
+            keyAlias ''
+            keyPassword ''
+        }
     }
 
     buildTypes {
-        debug
+        release {
+            signingConfig signingConfigs.release
+        }
     }
 }
 
 dependencies {
     compile project(':usi')
+}
+
+task sign() {
+    doLast {
+        sign(android.signingConfigs.release);
+    }
+}
+
+def sign(/*SigningConfig*/ signingConfig) {
+    def name = "$signingConfig.name"
+    logger.lifecycle("* ${name} ~ Manual signature");
+
+    def fileProp = "${name}File"
+    def aliasProp = "${name}Alias"
+    def pwdProp = "${name}Pwd"
+
+    String file
+    String alias
+    String pwd
+
+    if(project.hasProperty(fileProp) && project.hasProperty(aliasProp) && project.hasProperty(pwdProp)) {
+        file = project.property(fileProp)
+        alias = project.property(aliasProp)
+        pwd = project.property(pwdProp)
+    } else {
+        def console = System.console()
+        if (console) {
+            file = console.readLine("\n* ${name} ~ File: ") as String
+            alias = console.readLine("* ${name} ~ Alias: ") as String
+            pwd = console.readPassword("* ${name} ~ Pwd: ") as String
+        } else {
+            logger.error("Console is not defined...")
+            throw new GradleException("Unable to sign: $signingConfig")
+        }
+    }
+
+    signingConfig.storeFile = rootProject.file(file)
+    signingConfig.keyAlias = alias
+    signingConfig.storePassword = pwd
+    signingConfig.keyPassword = pwd
 }

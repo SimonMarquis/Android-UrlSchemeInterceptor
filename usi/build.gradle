@@ -1,37 +1,55 @@
+import com.android.builder.core.BuilderConstants
+
 apply plugin: 'com.android.library'
 
-def gitSha() {
-    return 'git rev-parse --short HEAD'.execute().text.trim()
-}
+def libVersionMajor = 0
+def libVersionMinor = 1
+def libVersionPatch = 0
+def libVersionSnapshot = true
+def libVersionName = "${libVersionMajor}.${libVersionMinor}.${libVersionPatch}${libVersionSnapshot ? '-SNAPSHOT' : ''}"
 
 android {
     resourcePrefix 'usi_'
 
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion 23
+    buildToolsVersion '23.0.1'
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.compileSdkVersion
-        buildConfigField "String", "LIBRARY_VERSION", "\"${rootProject.ext.VERSION_NAME}\""
-        buildConfigField "String", "GIT_SHA", "\"${gitSha()}\""
+        minSdkVersion 11
+        targetSdkVersion 23
+
+        versionName libVersionName
+
+        buildConfigField "int", "VERSION_MAJOR", "$libVersionMajor"
+        buildConfigField "int", "VERSION_MINOR", "$libVersionMinor"
+        buildConfigField "int", "VERSION_PATCH", "$libVersionPatch"
+        buildConfigField "boolean", "VERSION_SNAPSHOT", "$libVersionSnapshot"
+
         consumerProguardFiles 'consumer-proguard-rules.pro'
     }
 
     compileOptions {
-        sourceCompatibility rootProject.ext.javaVersion
-        targetCompatibility rootProject.ext.javaVersion
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
     }
-
 }
 
-task sourceJar(type: Jar) {
-    from 'src/main/java'
+android.variantFilter { variant ->
+    if (variant.buildType.name.equals(BuilderConstants.DEBUG)) {
+        variant.setIgnore(true);
+    }
+}
+
+android.libraryVariants.all { variant ->
+    variant.outputs.each { output ->
+        def outputFile = output.outputFile
+        if (outputFile != null && outputFile.name.endsWith('.aar')) {
+            def file = output.outputFile
+            output.outputFile = new File(file.parent as File, file.name.replace("-release.aar", "-${libVersionName}.aar"))
+        }
+    }
 }
 
 dependencies {
-    compile 'com.android.support:support-annotations:23.0.0'
+    compile 'com.android.support:support-annotations:23.0.1'
 }
-
-apply from: rootProject.file('gradle/checkstyle.gradle')
-apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
