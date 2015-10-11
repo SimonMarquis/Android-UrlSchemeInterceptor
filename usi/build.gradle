@@ -8,6 +8,11 @@ def libVersionPatch = 0
 def libVersionSnapshot = false
 def libVersionName = "${libVersionMajor}.${libVersionMinor}.${libVersionPatch}${libVersionSnapshot ? '-SNAPSHOT' : ''}"
 
+def libGroupId = 'fr.smarquis.usi'
+def libArtifactId = 'usi'
+def libLocalRepository = "${buildDir}/maven/${libVersionName}"
+def libLocalArtifact = "${buildDir}/artifact/"
+
 android {
     resourcePrefix 'usi_'
 
@@ -52,4 +57,78 @@ android.libraryVariants.all { variant ->
 
 dependencies {
     compile 'com.android.support:support-annotations:23.0.1'
+}
+
+apply plugin: 'maven'
+
+task androidJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    ext.androidJar = "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
+    classpath += files(ext.androidJar)
+}
+
+task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+    classifier = 'javadoc'
+    from androidJavadocs.destinationDir
+}
+
+task androidSourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+        pom.groupId = libGroupId
+        pom.artifactId = libArtifactId
+        pom.version = libVersionName
+        repository(url: "file://${libLocalRepository}")
+
+        pom.project {
+            name 'Android-UrlSchemeInterceptor'
+            description 'Intercept and debug url scheme on Android'
+            packaging 'aar'
+            url 'https://simonmarquis.github.io/Android-UrlSchemeInterceptor/'
+
+            scm {
+                url 'https://github.com/SimonMarquis/Android-UrlSchemeInterceptor'
+                connection 'scm:git@github.com:SimonMarquis/Android-UrlSchemeInterceptor.git'
+                developerConnection 'scm:git@github.com:SimonMarquis/Android-UrlSchemeInterceptor.git'
+            }
+
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+
+            developers {
+                developer {
+                    id 'SimonMarquis'
+                    name 'Simon Marquis'
+                }
+            }
+        }
+    }
+}
+
+task zipRelease(type: Zip) {
+    from libLocalRepository
+    destinationDir file(libLocalArtifact)
+    archiveName "${libArtifactId}-${libVersionName}.zip"
+}
+
+task generateRelease << {
+    println "Release ${libVersionName} can be found at ${libLocalRepository}/"
+    println "Release ${libVersionName} zipped can be found ${libLocalArtifact}/${libArtifactId}-${libVersionName}.zip"
+}
+
+generateRelease.dependsOn(uploadArchives)
+generateRelease.dependsOn(zipRelease)
+
+artifacts {
+    archives androidSourcesJar
+    archives androidJavadocsJar
 }

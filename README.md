@@ -8,14 +8,11 @@ What's gonna happen?
 **<a href="intent://example.com:8042/over/there/index.html?query=something#refresh#Intent;scheme=test;package=fr.smarquis.usi.sample;action=android.intent.action.VIEW;S.string=abc;B.boolean=true;i.int=123;l.long=123456;f.float=123.456;end">Click here</a> to trigger the url scheme!**
 
 ## Integration
-Import the [aar file](https://github.com/SimonMarquis/Android-UrlSchemeInterceptor/releases) into your project as a new module called `usi`:  
-`File` → `New` → `New Module` → `Import .JAR/.AAR package`
-
-Then in your `build.gradle` file:
+In your `build.gradle` file:
 
 ```groovy
 dependencies {
-    compile project(':usi')
+    compile 'fr.smarquis.usi:usi:1.0.0'
 }
 ```
 
@@ -65,6 +62,3 @@ intent://example.com:8042/over/there/index.html?query=something#refresh#Intent;s
 ```
 
 The `package=x.y.z;` is mandatory to prompt the user to install the app if it is not already on the device.
-
-## TODO
-- [ ] Publish aar to jCenter and Maven
