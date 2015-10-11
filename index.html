@@ -20,7 +20,7 @@
     <header>
       <div class="inner">
         <h1>Url Scheme Interceptor</h1>
-        <h2>Test and debug url scheme on Android</h2>
+        <h2>Intercept and debug url scheme on Android</h2>
         <a href="https://github.com/SimonMarquis/Android-UrlSchemeInterceptor" class="button"><small>View project on</small> GitHub</a>
       </div>
     </header>
@@ -28,55 +28,82 @@
     <div id="content-wrapper">
       <div class="inner clearfix">
         <section id="main-content">
-          <h2>
-<a id="demo" class="anchor" href="#demo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo</h2>
+          <p><img src="https://raw.githubusercontent.com/SimonMarquis/Android-UrlSchemeInterceptor/master/art/Play%20Store%20Feature.png" alt="Android-UrlScheme Interceptor" title="Android-UrlSchemeInterceptor"></p>
+
+<h2>
+<a id="test-it" class="anchor" href="#test-it" aria-hidden="true"><span class="octicon octicon-link"></span></a>Test it</h2>
 
 <p>What's gonna happen?<br>
-✔ App installed → Start the application<br>
-✘ App not installed → Redirect to Play Store  </p>
+✘ App not installed → Redirect to Play Store<br>
+✔ App installed → Start the application or the interceptor  </p>
 
-<p><a href="intent://example.com:8042/over/there/index.html?query=something#refresh#Intent;scheme=usi;package=fr.smarquis.usi.sample;action=android.intent.action.VIEW;S.string=abc;B.boolean=true;i.int=123;l.long=123456;f.float=123.456;end">Click here</a> to trigger the url scheme!</p>
+<p><strong>Click here to trigger the url scheme!</strong></p>
 
 <h2>
-<a id="how-to" class="anchor" href="#how-to" aria-hidden="true"><span class="octicon octicon-link"></span></a>How-to</h2>
+<a id="integration" class="anchor" href="#integration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Integration</h2>
 
-<p>This application can be launched without any modification.<br>
+<p>Import the <a href="https://github.com/SimonMarquis/Android-UrlSchemeInterceptor/releases">aar file</a> into your project as a new module called <code>usi</code>:<br>
+<code>File</code> → <code>New</code> → <code>New Module</code> → <code>Import .JAR/.AAR package</code></p>
+
+<p>Then in your <code>build.gradle</code> file:</p>
+
+<div class="highlight highlight-source-groovy"><pre>dependencies {
+    compile project(<span class="pl-s"><span class="pl-pds">'</span>:usi<span class="pl-pds">'</span></span>)
+}</pre></div>
+
+<p>In your <code>Application</code> class:</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">YourApplication</span> <span class="pl-k">extends</span> <span class="pl-e">Application</span> {
+
+    <span class="pl-k">@Override</span> <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">onCreate</span>() {
+        <span class="pl-v">super</span><span class="pl-k">.</span>onCreate();
+        <span class="pl-smi">Usi</span><span class="pl-k">.</span>intercept(<span class="pl-v">this</span>);
+    }
+
+}</pre></div>
+
+<p>If you want to intercept a custom scheme, simply override the <code>usi_scheme</code> string resource:</p>
+
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">resources</span>&gt;
+    &lt;<span class="pl-ent">string</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>usi_scheme<span class="pl-pds">"</span></span>&gt;your-custom-scheme&lt;/<span class="pl-ent">string</span>&gt;
+&lt;/<span class="pl-ent">resources</span>&gt;</pre></div>
+
+<p><strong>That's it!</strong> UrlSchemeInterceptor will automatically intercept the corresponding scheme.</p>
+
+<h2>
+<a id="manual-trigger" class="anchor" href="#manual-trigger" aria-hidden="true"><span class="octicon octicon-link"></span></a>Manual trigger</h2>
+
+<p>This demo application can be launched without any modification.<br>
 Use this <code>adb</code> command to trigger the default url scheme with some parameters:</p>
 
-<div class="highlight highlight-shell"><pre>adb shell am start \
+<div class="highlight highlight-source-shell"><pre>adb shell am start \
     -a android.intent.action.VIEW \
-    -d <span class="pl-s"><span class="pl-pds">'</span>test://example.com:8042/over/there/index.html?query=something#refresh<span class="pl-pds">'</span></span> \
-    --es string abc \
-    --ez boolean <span class="pl-c1">true</span> \
-    --ei int 123 \
-    --el long 123456 \
-    --ef float 123.456 \
-    --eu uri http://www.google.com \
-    --esa stringArray a,b,c</pre></div>
-
-<p>If you want to test your custom url scheme, simply add the corresponding entry in <a href="app/src/main/AndroidManifest.xml">AndroidManifest.xml</a></p>
-
-<div class="highlight highlight-xml"><pre>&lt;<span class="pl-ent">intent-filter</span>&gt;
-    &lt;<span class="pl-ent">action</span> <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>android.intent.action.VIEW<span class="pl-pds">"</span></span> /&gt;
-
-    &lt;<span class="pl-ent">category</span> <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>android.intent.category.DEFAULT<span class="pl-pds">"</span></span> /&gt;
-    &lt;<span class="pl-ent">category</span> <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>android.intent.category.BROWSABLE<span class="pl-pds">"</span></span> /&gt;
-
-    &lt;<span class="pl-ent">data</span> <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">scheme</span>=<span class="pl-s"><span class="pl-pds">"</span>test<span class="pl-pds">"</span></span> /&gt;
-    <span class="pl-c">&lt;!--Add your custom scheme here--&gt;</span>
-    <span class="pl-c">&lt;!--&lt;data android:scheme="custom" /&gt;--&gt;</span>
-&lt;/<span class="pl-ent">intent-filter</span>&gt;</pre></div>
+    -d <span class="pl-s"><span class="pl-pds">'</span>usi://example.com:8042/over/there/index.html?query=something#refresh<span class="pl-pds">'</span></span> \
+    --es extra-string abc \
+    --ez extra-boolean <span class="pl-c1">true</span> \
+    --ei extra-int 123 \
+    --el extra-long 123456 \
+    --ef extra-float 123.456 \
+    --eu extra-uri http://www.google.com \
+    --esa extra-stringArray a,b,c</pre></div>
 
 <h2>
-<a id="chrome" class="anchor" href="#chrome" aria-hidden="true"><span class="octicon octicon-link"></span></a>Chrome</h2>
+<a id="chrome-intents" class="anchor" href="#chrome-intents" aria-hidden="true"><span class="octicon octicon-link"></span></a>Chrome Intents</h2>
 
 <p>The default Chrome implementation is done through <a href="https://developer.chrome.com/multidevice/android/intents">intents</a>.<br>
-Simply wrap the following <em>intent</em> into an <code>&lt;a href="intent"&gt;</code> tag.</p>
+Simply wrap the following <em>intent</em> into an <code>&lt;a href="..."&gt;</code> tag.</p>
 
-<pre><code>intent://example.com:8042/over/there/index.html?query=something#refresh#Intent;scheme=test;package=fr.smarquis.urlscheme;action=android.intent.action.VIEW;S.string=abc;B.boolean=true;i.int=123;l.long=123456;f.float=123.456;end
+<pre><code>intent://example.com:8042/over/there/index.html?query=something#refresh#Intent;scheme=usi;package=fr.smarquis.usi.sample;action=android.intent.action.VIEW;S.string=abc;B.boolean=true;i.int=123;l.long=123456;f.float=123.456;end
 </code></pre>
 
 <p>The <code>package=x.y.z;</code> is mandatory to prompt the user to install the app if it is not already on the device.</p>
+
+<h2>
+<a id="todo" class="anchor" href="#todo" aria-hidden="true"><span class="octicon octicon-link"></span></a>TODO</h2>
+
+<ul>
+<li>[ ] Publish aar to jCenter and Maven</li>
+</ul>
         </section>
 
         <aside id="sidebar">
