@@ -45,7 +45,7 @@ task sign() {
 
 def sign(/*SigningConfig*/ signingConfig) {
     def name = "$signingConfig.name"
-    logger.lifecycle("* ${name} ~ Manual signature");
+    logger.lifecycle("* ${name} ~ Manual signing");
 
     def fileProp = "${name}File"
     def aliasProp = "${name}Alias"
