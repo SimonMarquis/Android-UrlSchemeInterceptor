@@ -2,10 +2,10 @@ import com.android.builder.core.BuilderConstants
 
 apply plugin: 'com.android.library'
 
-def libVersionMajor = 0
-def libVersionMinor = 1
+def libVersionMajor = 1
+def libVersionMinor = 0
 def libVersionPatch = 0
-def libVersionSnapshot = true
+def libVersionSnapshot = false
 def libVersionName = "${libVersionMajor}.${libVersionMinor}.${libVersionPatch}${libVersionSnapshot ? '-SNAPSHOT' : ''}"
 
 android {
