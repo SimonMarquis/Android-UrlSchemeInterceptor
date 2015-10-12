@@ -36,6 +36,18 @@ If you want to intercept a custom scheme, simply override the `usi_scheme` strin
 </resources>
 ```
 
+Or more complex, add a new IntentFilter to the InterceptorActivity:
+```java
+<activity android:name="fr.smarquis.usi.InterceptorActivity">
+    <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data android:host="your.project.com" android:scheme="http" />
+    </intent-filter>
+</activity>
+```
+
 **That's it!** UrlSchemeInterceptor will automatically intercept the corresponding scheme.
 
 ## Manual trigger
