@@ -37,7 +37,7 @@ If you want to intercept a custom scheme, simply override the `usi_scheme` strin
 ```
 
 Or more complex, add a new IntentFilter to the InterceptorActivity:
-```java
+```xml
 <activity android:name="fr.smarquis.usi.InterceptorActivity">
     <intent-filter>
         <action android:name="android.intent.action.VIEW" />
