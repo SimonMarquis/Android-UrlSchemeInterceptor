@@ -42,13 +42,10 @@
 <h2>
 <a id="integration" class="anchor" href="#integration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Integration</h2>
 
-<p>Import the <a href="https://github.com/SimonMarquis/Android-UrlSchemeInterceptor/releases">aar file</a> into your project as a new module called <code>usi</code>:<br>
-<code>File</code> → <code>New</code> → <code>New Module</code> → <code>Import .JAR/.AAR package</code></p>
-
-<p>Then in your <code>build.gradle</code> file:</p>
+<p>In your <code>build.gradle</code> file:</p>
 
 <div class="highlight highlight-source-groovy"><pre>dependencies {
-    compile project(<span class="pl-s"><span class="pl-pds">'</span>:usi<span class="pl-pds">'</span></span>)
+    compile <span class="pl-s"><span class="pl-pds">'</span>fr.smarquis.usi:usi:1.0.0<span class="pl-pds">'</span></span>
 }</pre></div>
 
 <p>In your <code>Application</code> class:</p>
@@ -67,6 +64,17 @@
 <div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">resources</span>&gt;
     &lt;<span class="pl-ent">string</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>usi_scheme<span class="pl-pds">"</span></span>&gt;your-custom-scheme&lt;/<span class="pl-ent">string</span>&gt;
 &lt;/<span class="pl-ent">resources</span>&gt;</pre></div>
+
+<p>Or more complex, add a new IntentFilter to the InterceptorActivity:</p>
+
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">activity</span> <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>fr.smarquis.usi.InterceptorActivity<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">intent-filter</span>&gt;
+        &lt;<span class="pl-ent">action</span> <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>android.intent.action.VIEW<span class="pl-pds">"</span></span> /&gt;
+        &lt;<span class="pl-ent">category</span> <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>android.intent.category.DEFAULT<span class="pl-pds">"</span></span> /&gt;
+        &lt;<span class="pl-ent">category</span> <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>android.intent.category.BROWSABLE<span class="pl-pds">"</span></span> /&gt;
+        &lt;<span class="pl-ent">data</span> <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">host</span>=<span class="pl-s"><span class="pl-pds">"</span>your.project.com<span class="pl-pds">"</span></span> <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">scheme</span>=<span class="pl-s"><span class="pl-pds">"</span>http<span class="pl-pds">"</span></span> /&gt;
+    &lt;/<span class="pl-ent">intent-filter</span>&gt;
+&lt;/<span class="pl-ent">activity</span>&gt;</pre></div>
 
 <p><strong>That's it!</strong> UrlSchemeInterceptor will automatically intercept the corresponding scheme.</p>
 
@@ -97,13 +105,6 @@ Simply wrap the following <em>intent</em> into an <code>&lt;a href="..."&gt;</co
 </code></pre>
 
 <p>The <code>package=x.y.z;</code> is mandatory to prompt the user to install the app if it is not already on the device.</p>
-
-<h2>
-<a id="todo" class="anchor" href="#todo" aria-hidden="true"><span class="octicon octicon-link"></span></a>TODO</h2>
-
-<ul>
-<li>[ ] Publish aar to jCenter and Maven</li>
-</ul>
         </section>
 
         <aside id="sidebar">
